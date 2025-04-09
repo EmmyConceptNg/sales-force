@@ -41,10 +41,10 @@ app.get('/memser/idle', (req, res) => {
 });
 
 // HTTPS server options
-const options = {
-  key: fs.readFileSync(path.join(__dirname, 'path/to/your/private-key.pem')),
-  cert: fs.readFileSync(path.join(__dirname, 'path/to/your/certificate.pem'))
-};
+// const options = {
+//   key: fs.readFileSync(path.join(__dirname, 'path/to/your/private-key.pem')),
+//   cert: fs.readFileSync(path.join(__dirname, 'path/to/your/certificate.pem'))
+// };
 
 https.createServer(options, app).listen(port, () => {
   console.log(`Server running on https://localhost:${port}`);
