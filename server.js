@@ -46,6 +46,6 @@ app.get('/memser/idle', (req, res) => {
 //   cert: fs.readFileSync(path.join(__dirname, 'path/to/your/certificate.pem'))
 // };
 
-https.createServer(options, app).listen(port, () => {
+app.listen(port, () => {
   console.log(`Server running on https://localhost:${port}`);
 });
