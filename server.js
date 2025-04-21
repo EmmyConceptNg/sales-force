@@ -38,6 +38,7 @@ const logger = winston.createLogger({
 
 const app = express();
 const port = process.env.PORT || 12000;
+const host = '10.89.11230'; // Specific IP address to bind to
 
 // Enforce HTTPS
 app.use(enforce.HTTPS({ trustProtoHeader: true }));
@@ -76,9 +77,9 @@ app.get('/memser/idle', (req, res) => {
 //   cert: fs.readFileSync(path.join(__dirname, 'path/to/your/certificate.pem'))
 // };
 
-app.listen(port, () => {
-  logger.info(`Server running on https://localhost:${port}`);
-  console.log(`Server running on https://localhost:${port}`);
+app.listen(port, host, () => {
+  logger.info(`Server running on http://${host}:${port}`);
+  console.log(`Server running on http://${host}:${port}`);
 });
 
 // Handle uncaught exceptions
