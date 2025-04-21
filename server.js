@@ -6,8 +6,31 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import * as dotenv from 'dotenv';
 import enforce from 'express-sslify';
+import winston from 'winston';
 
 dotenv.config();
+
+// Configure logger
+const logDir = path.join(__dirname, 'logs');
+// Create logs directory if it doesn't exist
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir);
+}
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp({
+      format: 'YYYY-MM-DD HH:mm:ss'
+    }),
+    winston.format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+  ),
+  transports: [
+    new winston.transports.File({ filename: path.join(logDir, 'error.log'), level: 'error' }),
+    new winston.transports.File({ filename: path.join(logDir, 'combined.log') }),
+    new winston.transports.Console()
+  ]
+});
 
 const app = express();
 const port = process.env.PORT || 12000;
@@ -26,16 +49,21 @@ app.use((req, res, next) => {
 app.get('/memser/idle', (req, res) => {
   const { ext, callerid } = req.query;
   if (!ext || !callerid) {
+    logger.error(`Missing required params: ext=${ext}, callerid=${callerid}`);
     return res.status(400).send('Missing required query parameters');
   }
 
   const filename = `${ext}.dat`;
   const filePath = path.join('V:\\s_cti\\connected', filename);
-
+  
+  logger.info(`Writing file ${filename} with caller ID: ${callerid}`);
+  
   fs.writeFile(filePath, callerid, (err) => {
     if (err) {
+      logger.error(`Error writing file ${filename}: ${err.message}`);
       return res.status(500).send('Error writing file');
     }
+    logger.info(`File ${filename} created successfully`);
     res.send('File created successfully');
   });
 });
@@ -47,5 +75,12 @@ app.get('/memser/idle', (req, res) => {
 // };
 
 app.listen(port, () => {
+  logger.info(`Server running on https://localhost:${port}`);
   console.log(`Server running on https://localhost:${port}`);
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (error) => {
+  logger.error(`Uncaught Exception: ${error.message}`);
+  logger.error(error.stack);
 });
