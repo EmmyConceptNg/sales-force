@@ -78,8 +78,8 @@ app.get('/memser/idle', (req, res) => {
 // };
 
 app.listen(port, host, () => {
-  logger.info(`Server running on http://${host}:${port}`);
-  console.log(`Server running on http://${host}:${port}`);
+  logger.info(`Server running on https://${host}:${port}`);
+  console.log(`Server running on https://${host}:${port}`);
 });
 
 // Handle uncaught exceptions
