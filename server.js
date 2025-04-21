@@ -10,6 +10,10 @@ import winston from 'winston';
 
 dotenv.config();
 
+// Initialize __filename and __dirname first
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // Configure logger
 const logDir = path.join(__dirname, 'logs');
 // Create logs directory if it doesn't exist
@@ -34,8 +38,6 @@ const logger = winston.createLogger({
 
 const app = express();
 const port = process.env.PORT || 12000;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 // Enforce HTTPS
 app.use(enforce.HTTPS({ trustProtoHeader: true }));
