@@ -37,7 +37,7 @@ const logger = winston.createLogger({
 });
 
 const app = express();
-const port = process.env.PORT || 12000;
+const port = process.env.PORT || 12500;
 const host = '10.89.11.230'; // Specific IP address to bind to
 
 // Enforce HTTPS
@@ -77,9 +77,19 @@ app.get('/memser/idle', (req, res) => {
 //   cert: fs.readFileSync(path.join(__dirname, 'path/to/your/certificate.pem'))
 // };
 
-app.listen(port, host, () => {
-  logger.info(`Server running on https://${host}:${port}`);
-  console.log(`Server running on https://${host}:${port}`);
+app.listen(port, () => {
+  logger.info(`Server running on https://localhost:${port}`);
+  console.log(`Server running on https://localhost:${port} (all interfaces)`);
+}).on('error', (err) => {
+  logger.error(`Error starting server: ${err.message}`);
+  
+  if (err.code === 'EACCES') {
+    logger.error(`Permission denied - you might need to run with administrator privileges or use a port above 1024`);
+  } else if (err.code === 'EADDRINUSE') {
+    logger.error(`Port ${port} is already in use. Try a different port.`);
+  }
+  
+  process.exit(1);
 });
 
 // Handle uncaught exceptions
