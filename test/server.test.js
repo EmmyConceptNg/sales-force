@@ -2,14 +2,18 @@ import axios from 'axios';
 import { expect } from 'chai';
 
 describe('Server Tests', () => {
-  const baseURL = 'https://localhost:12000';
+  const baseURL = 'http://localhost:12500'; // changed back to https
 
   it('should return 400 for missing query parameters', async () => {
     try {
       await axios.get(`${baseURL}/memser/idle`);
     } catch (error) {
-      expect(error.response.status).to.equal(400);
-      expect(error.response.data).to.equal('Missing required query parameters');
+      if (error.response) {
+        expect(error.response.status).to.equal(400);
+        expect(error.response.data).to.equal('Missing required query parameters');
+      } else {
+        throw error;
+      }
     }
   });
 

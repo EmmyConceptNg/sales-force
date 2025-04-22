@@ -57,10 +57,22 @@ app.get('/memser/idle', (req, res) => {
   }
 
   const filename = `${ext}.dat`;
-  const filePath = path.join('V:\\s_cti\\connected', filename);
-  
+  const dirPath = 'V:\\s_cti\\connected';
+  const filePath = path.join(dirPath, filename);
+
+  // Ensure directory exists
+  if (!fs.existsSync(dirPath)) {
+    try {
+      fs.mkdirSync(dirPath, { recursive: true });
+      logger.info(`Created directory: ${dirPath}`);
+    } catch (err) {
+      logger.error(`Error creating directory ${dirPath}: ${err.message}`);
+      return res.status(500).send('Error creating directory');
+    }
+  }
+
   logger.info(`Writing file ${filename} with caller ID: ${callerid}`);
-  
+
   fs.writeFile(filePath, callerid, (err) => {
     if (err) {
       logger.error(`Error writing file ${filename}: ${err.message}`);

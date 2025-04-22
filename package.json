@@ -9,9 +9,13 @@
     "test": "mocha --require @babel/register 'test/**/*.test.js'"
   },
   "dependencies": {
+    "@babel/register": "^7.25.9",
+    "axios": "^1.8.4",
+    "chai": "^5.2.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-sslify": "^1.2.0",
+    "mocha": "^11.1.0",
     "winston": "^3.17.0"
   }
 }
