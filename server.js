@@ -37,7 +37,7 @@ const logger = winston.createLogger({
 });
 
 const app = express();
-const port = process.env.PORT || 12000;
+const port = process.env.PORT || 12500;
 const host = '10.89.11.230'; // Specific IP address to bind to
 
 // Enforce HTTPS
