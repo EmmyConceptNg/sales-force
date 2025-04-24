@@ -89,7 +89,7 @@ app.get('/memser/idle', (req, res) => {
 //   cert: fs.readFileSync(path.join(__dirname, 'path/to/your/certificate.pem'))
 // };
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   logger.info(`Server running on https://localhost:${port}`);
   console.log(`Server running on https://localhost:${port} (all interfaces)`);
 }).on('error', (err) => {

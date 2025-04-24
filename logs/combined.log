@@ -4,3 +4,9 @@
 2025-04-22 14:53:37 info: Server running on https://localhost:12500
 2025-04-22 14:55:51 info: Writing file 123.dat with caller ID: 456
 2025-04-22 14:55:51 error: Error writing file 123.dat: ENOENT: no such file or directory, open 'V:\s_cti\connected/123.dat'
+2025-04-22 14:59:43 info: Writing file 123.dat with caller ID: 456
+2025-04-22 14:59:43 error: Error writing file 123.dat: ENOENT: no such file or directory, open 'V:\s_cti\connected/123.dat'
+2025-04-22 15:00:08 info: Server running on https://localhost:12500
+2025-04-22 15:01:44 info: Created directory: V:\s_cti\connected
+2025-04-22 15:01:44 info: Writing file 123.dat with caller ID: 456
+2025-04-22 15:01:44 info: File 123.dat created successfully

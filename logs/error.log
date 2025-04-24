@@ -1,1 +1,2 @@
 2025-04-22 14:55:51 error: Error writing file 123.dat: ENOENT: no such file or directory, open 'V:\s_cti\connected/123.dat'
+2025-04-22 14:59:43 error: Error writing file 123.dat: ENOENT: no such file or directory, open 'V:\s_cti\connected/123.dat'
